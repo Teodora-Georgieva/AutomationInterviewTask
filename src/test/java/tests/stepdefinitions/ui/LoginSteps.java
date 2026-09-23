@@ -2,8 +2,6 @@ package tests.stepdefinitions.ui;
 
 import framework.config.ConfigManager;
 import framework.driver.DriverManager;
-import framework.pages.LoginPage;
-import framework.pages.ProductsPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -47,11 +45,17 @@ public class LoginSteps {
     @Then("I should be redirected to the products page")
     public void verifySuccessfulLogin() {
         Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), ConfigManager.getProductsUrl());
-        Assert.assertEquals(context.getProductsPage().getPageHeader(), "Products"); //todo remove the constant from here
+        Assert.assertEquals(context.getProductsPage().getPageTitle(), "Products"); //todo remove the constant from here
     }
 
     @Then("I should see the login error message {string}")
     public void verifyLoginError(String errorMessage) {
         Assert.assertEquals(context.getLoginPage().getErrorMessage(), errorMessage);
+    }
+
+    @Given("I'm logged in")
+    public void loginAsDefaultUser() {
+        openLoginPage();
+        login(ConfigManager.getUiUsername(), ConfigManager.getUiPassword());
     }
 }
