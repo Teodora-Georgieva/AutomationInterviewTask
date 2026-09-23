@@ -23,18 +23,22 @@ public class LoginPage extends BasePage {
     }
 
     public void enterUsername(String username) {
+        waitForElementVisible(usernameField);
         usernameField.sendKeys(username);
     }
 
     public void enterPassword(String password) {
+        waitForElementVisible(passwordField);
         passwordField.sendKeys(password);
     }
 
     public void clickLoginButton() {
+        waitForElementClickable(loginButton);
         loginButton.click();
     }
 
     public String getErrorMessage() {
+        waitForElementVisible(errorMessage);
         return errorMessage.getText();
     }
 
