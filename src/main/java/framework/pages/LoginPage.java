@@ -3,7 +3,6 @@ package framework.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class LoginPage extends BasePage {
     @FindBy(css = "[data-test='username']")
@@ -41,15 +40,4 @@ public class LoginPage extends BasePage {
         waitForElementVisible(errorMessage);
         return errorMessage.getText();
     }
-
-    //Page objects shouldnt contain validation logic - they are only used to interact with the web elements - they
-    //contain the elements, locate them and interact with them
-
-//    public void verifySuccessfulLogin() {
-//        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
-//    }
-
-//    public void verifyLoginError(String errorMessage) {
-//
-//    }
 }

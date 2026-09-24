@@ -19,10 +19,6 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-//    public boolean isDisplayed() {
-//        return driver.getCurrentUrl().equals("https://www.saucedemo.com/inventory.html");
-//    }
-
     public String getPageTitle() {
         waitForElementVisible(pageTitle);
         return pageTitle.getText();
