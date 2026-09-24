@@ -1,22 +1,37 @@
 package tests.context;
 
+import framework.api.ApiClient;
+import framework.api.AuthApi;
+
+import framework.api.BookingApi;
+import framework.config.ConfigManager;
 import framework.driver.DriverManager;
+import framework.models.BookingRequest;
 import framework.pages.*;
+import lombok.Data;
 import org.openqa.selenium.WebDriver;
+import io.restassured.response.Response;
 
+@Data
 public class TestContext {
-    private final WebDriver driver;
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
+    private CartPage cartPage;
+    private CheckoutPage checkoutPage;
+    private CheckoutOverviewPage checkoutOverviewPage;
+    private OrderConfirmationPage confirmationPage;
 
-    private final LoginPage loginPage;
-    private final ProductsPage productsPage;
-    private final CartPage cartPage;
-    private final CheckoutPage checkoutPage;
-    private final CheckoutOverviewPage checkoutOverviewPage;
-    private final OrderConfirmationPage confirmationPage;
+    private ApiClient apiClient;
+    private AuthApi authApi;
+    private BookingApi bookingApi;
+    private BookingRequest bookingRequest;
+    private int bookingId;
 
-    public TestContext() {
-        this.driver = DriverManager.getDriver();
+    private Response response;
+    private String token;
 
+    public void initializeUi() {
+        WebDriver driver = DriverManager.getDriver();
         this.loginPage = new LoginPage(driver);
         this.productsPage = new ProductsPage(driver);
         this.cartPage = new CartPage(driver);
@@ -25,21 +40,9 @@ public class TestContext {
         this.confirmationPage = new OrderConfirmationPage(driver);
     }
 
-    public LoginPage getLoginPage() {
-        return loginPage;
+    public void initializeApi() {
+        this.apiClient = new ApiClient(ConfigManager.getApiBaseUrl());
+        this.authApi = new AuthApi(apiClient);
+        this.bookingApi = new BookingApi(apiClient);
     }
-
-    public ProductsPage getProductsPage() {
-        return productsPage;
-    }
-
-    public CartPage getCartPage() {
-        return cartPage;
-    }
-
-    public CheckoutPage getCheckoutPage() { return checkoutPage; }
-
-    public CheckoutOverviewPage getCheckoutOverviewPage() { return checkoutOverviewPage; }
-
-    public OrderConfirmationPage getConfirmationPage() { return confirmationPage; }
 }

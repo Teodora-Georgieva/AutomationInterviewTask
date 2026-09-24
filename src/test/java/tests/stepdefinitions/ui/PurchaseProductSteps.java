@@ -3,11 +3,13 @@ package tests.stepdefinitions.ui;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import tests.context.TestContext;
 
 import java.util.Map;
 
+@Log4j2
 public class PurchaseProductSteps {
     private final TestContext context;
 
@@ -18,6 +20,7 @@ public class PurchaseProductSteps {
     @When("I add {string} to the cart")
     public void addProductToCart(String productName) {
         context.getProductsPage().addProductToCart(productName);
+        log.info("product {} added to cart", productName);
     }
 
     @Then("the cart should contain {int} item")

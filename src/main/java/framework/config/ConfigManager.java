@@ -56,4 +56,8 @@ public class ConfigManager {
     public static String getUiPassword() {
         return properties.getProperty("ui.password");
     }
+
+    public static String getApiUsername() { return properties.getProperty("api.username"); }
+
+    public static String getApiPassword() { return properties.getProperty("api.password"); }
 }

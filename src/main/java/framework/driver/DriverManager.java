@@ -1,8 +1,10 @@
 package framework.driver;
 
 import framework.config.ConfigManager;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 
+@Log4j2
 public class DriverManager {
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
@@ -16,6 +18,7 @@ public class DriverManager {
             );
 
             driver.set(webDriver);
+            log.info("WebDriver initialized");
         }
     }
 
@@ -33,6 +36,7 @@ public class DriverManager {
         if (driver.get() != null) {
             driver.get().quit();
             driver.remove();
+            log.info("WebDriver closed");
         }
     }
 }

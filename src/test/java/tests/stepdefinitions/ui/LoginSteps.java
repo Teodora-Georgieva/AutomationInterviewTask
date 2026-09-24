@@ -5,9 +5,11 @@ import framework.driver.DriverManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import tests.context.TestContext;
 
+@Log4j2
 public class LoginSteps {
     private final TestContext context;
 
@@ -20,23 +22,9 @@ public class LoginSteps {
         DriverManager.getDriver().get(ConfigManager.getUiBaseUrl());
     }
 
-//    @When("I enter username {string}")
-//    public void enterUsername(String username) {
-//        context.getLoginPage().enterUsername(username);
-//    }
-//
-//    @When("I enter password {string}")
-//    public void enterPassword(String password) {
-//        context.getLoginPage().enterPassword(password);
-//    }
-//
-//    @When("I click the login button")
-//    public void clickLoginButton() {
-//        context.getLoginPage().clickLoginButton();
-//    }
-
     @When("I login with username {string} and password {string}")
     public void login(String username, String password) {
+        log.info("Logging in as user: {}", username);
         context.getLoginPage().enterUsername(username);
         context.getLoginPage().enterPassword(password);
         context.getLoginPage().clickLoginButton();
@@ -45,7 +33,7 @@ public class LoginSteps {
     @Then("I should be redirected to the products page")
     public void verifySuccessfulLogin() {
         Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), ConfigManager.getProductsUrl());
-        Assert.assertEquals(context.getProductsPage().getPageTitle(), "Products"); //todo remove the constant from here
+        Assert.assertEquals(context.getProductsPage().getPageTitle(), "Products");
     }
 
     @Then("I should see the login error message {string}")
